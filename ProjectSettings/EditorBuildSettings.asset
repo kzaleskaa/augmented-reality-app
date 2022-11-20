@@ -4,5 +4,15 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
-  m_configObjects: {}
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/Slider.unity
+    guid: 6429a3ed71397af4a9948b37d36a5277
+  m_configObjects:
+    UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 0c3e4dcdf07dc4842b45661e63bce32d, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 401be22e64a328441be4b9b65817d7aa, type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: c9c898a52830ca74993698e4a93c1f63, type: 2}
+    xr.sdk.mock-hmd.settings: {fileID: 11400000, guid: 183c69fa520794044b4ac2ed0365fd83, type: 2}
