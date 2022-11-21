@@ -27,6 +27,8 @@
 # Asset store 
 /[Aa]ssets/LowPolyEarth
 /[Aa]ssets/Alstra Infinite
+/[Aa]ssets/Plugins
+/[Aa]ssets/Pure Poly
 
 # Visual Studio cache directory
 .vs/
