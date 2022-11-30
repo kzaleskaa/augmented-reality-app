@@ -2,21 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Vuforia;
+using UnityEngine.Video;
+using TMPro;
 
 public class changeModels : MonoBehaviour
 {
     VirtualButtonBehaviour[] virtualButtonBehaviours;
     string virtualButtonName;
-    public GameObject firstPanel, secondPanel, cube, sphere, cylinder, capsule;
+    int numberOfPlace;
+    string[] models = new string[] { "Italy", "Norway", "Spain", "Greece"};
+    string[] welcomeMsg = new string[] { "Bongiorno in Italia", "Velkommen til Norge", "Bienvenido a España", "Καλώς ήρθατε στην Ελλάδα" };
+    public GameObject informationPanel, videoPanel;
+    public GameObject placeVideoPanel, placeInformationPanel;
+    public GameObject flagMaterial, welcomeText;
 
     void Start()
     {
+        numberOfPlace = 0;
+        Debug.Log(models[numberOfPlace]);
         virtualButtonBehaviours = GetComponentsInChildren<VirtualButtonBehaviour>();
 
         for (int i = 0; i < virtualButtonBehaviours.Length; ++i)
         {
             virtualButtonBehaviours[i].RegisterOnButtonPressed(onButtonPressed);
-            virtualButtonBehaviours[i].RegisterOnButtonReleased(onButtonReleased);
         }
     }
 
@@ -26,69 +34,44 @@ public class changeModels : MonoBehaviour
 
         if(virtualButtonName == "VirtualButtonChange") {
             VirtualButtonChange();
+            ChangePlace();
             Debug.Log("Button Pressed - Change");
-        } else if(firstPanel.activeSelf) {
-            Deactivate();
-            if(virtualButtonName == "VirtualButton1") {
-                Btn1();
-                Debug.Log("Button Pressed - Cube");
-            } else if(virtualButtonName == "VirtualButton2") {
-                Btn2();
-                Debug.Log("Button Pressed - Sphere");
-            }
-        } else {
-            Deactivate();
-            if(virtualButtonName == "VirtualButton1") {
-                Btn3();
-                Debug.Log("Button Pressed - Cylinder");
-            } else if(virtualButtonName == "VirtualButton2") {
-                Btn4();
-                Debug.Log("Button Pressed - Capsule");
-            }
+        } else if(virtualButtonName == "VirtualButtonInfo") {
+            VirtualButtonInfo();
+            Debug.Log("Button Pressed - Info");
+        } else if(virtualButtonName == "VirtualButtonVideo") {
+            VirtualButtonVideo();
+            Debug.Log("Button Pressed - Video");
         }
-    }
-
-    public void onButtonReleased(VirtualButtonBehaviour vb)
-    {
-        Debug.Log("Button released");
     }
 
     void VirtualButtonChange()
     {
-        if(firstPanel.activeInHierarchy) {
-            firstPanel.SetActive(false);
-            secondPanel.SetActive(true);
-        } else {
-            firstPanel.SetActive(true);
-            secondPanel.SetActive(false);
-        }
+        if (numberOfPlace == models.Length - 1)
+            numberOfPlace = 0;
+        else
+            numberOfPlace++;
     }
 
-    void Deactivate() 
+    void VirtualButtonInfo()
     {
-        cube.SetActive(false);
-        sphere.SetActive(false);
-        cylinder.SetActive(false);
-        capsule.SetActive(false);
+        placeVideoPanel.SetActive(false);
+        // update panelInfo flag materialAssets/Resources/Flags/Materials/Spain.mat
+        placeInformationPanel.SetActive(true);
     }
 
-    void Btn1 () 
+    void VirtualButtonVideo()
     {
-        cube.SetActive(true);
+        placeInformationPanel.SetActive(false);
+        placeVideoPanel.SetActive(true);
     }
 
-    void Btn2 () 
-    {
-        sphere.SetActive(true);
-    }
-
-    void Btn3 () 
-    {
-        cylinder.SetActive(true);
-    }
-
-    void Btn4 () 
-    {
-        capsule.SetActive(true);
+    void ChangePlace() {
+        flagMaterial.GetComponent<Renderer>().material = Resources.Load("Flags/Materials/" + models[numberOfPlace], typeof(Material)) as Material;
+        // update background image
+        placeInformationPanel.GetComponent<Renderer>().material = Resources.Load("Borders/" + models[numberOfPlace], typeof(Material)) as Material;
+        // update text
+        welcomeText.GetComponent<TextMeshPro>().text = welcomeMsg[numberOfPlace];
+        placeVideoPanel.GetComponent<VideoPlayer>().clip = (VideoClip)Resources.Load(models[numberOfPlace]); 
     }
 }
