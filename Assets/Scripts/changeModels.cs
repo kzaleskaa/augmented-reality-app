@@ -13,7 +13,7 @@ public class changeModels : MonoBehaviour
     string[] models = new string[] { "Italy", "Norway", "Spain", "Greece"};
     string[] welcomeMsg = new string[] { "Bongiorno in Italia", "Velkommen til Norge", "Bienvenido a España", "Καλώς ήρθατε στην Ελλάδα" };
     public GameObject informationPanel, videoPanel;
-    public GameObject placeVideoPanel, placeInformationPanel;
+    public GameObject placeInformationPanel, placeVideoPanel;
     public GameObject flagMaterial, welcomeText;
 
     void Start()
@@ -56,7 +56,6 @@ public class changeModels : MonoBehaviour
     void VirtualButtonInfo()
     {
         placeVideoPanel.SetActive(false);
-        // update panelInfo flag materialAssets/Resources/Flags/Materials/Spain.mat
         placeInformationPanel.SetActive(true);
     }
 
@@ -64,6 +63,7 @@ public class changeModels : MonoBehaviour
     {
         placeInformationPanel.SetActive(false);
         placeVideoPanel.SetActive(true);
+        placeVideoPanel.GetComponent<VideoPlayer>().Play();
     }
 
     void ChangePlace() {
